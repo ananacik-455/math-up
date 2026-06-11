@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MathUp MVP Plan</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<style>
+  :root {
+    /* Dark Theme Backgrounds */
+    --color-background-base: #0f172a;        /* Deep blue-gray body */
+    --color-background-primary: #1e293b;     /* Card background */
+    --color-background-secondary: #334155;   /* Pills and metrics */
+    
+    /* Transparent Badge Backgrounds */
+    --color-background-danger: rgba(248, 113, 113, 0.15);
+    --color-background-warning: rgba(251, 191, 36, 0.15);
+    --color-background-success: rgba(52, 211, 153, 0.15);
+    --color-background-info: rgba(96, 165, 250, 0.15);
+
+    /* High Contrast Text */
+    --color-text-primary: #f8fafc;           /* Main headings & text */
+    --color-text-secondary: #94a3b8;         /* Subtitles & descriptions */
+    
+    /* Neon Contrast Colors for Badges */
+    --color-text-danger: #f87171;            /* Must have - Red */
+    --color-text-warning: #fbbf24;           /* Should have - Yellow */
+    --color-text-success: #34d399;           /* Free - Green */
+    --color-text-info: #60a5fa;              /* Paid - Blue */
+
+    /* Borders */
+    --color-border-tertiary: #475569;
+    --color-border-secondary: #64748b;
+    --color-border-info: #3b82f6;
+
+    /* Styling */
+    --border-radius-lg: 12px;
+    --border-radius-md: 8px;
+  }
+
+  body {
+    background-color: var(--color-background-base);
+    color: var(--color-text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.5;
+    padding: 30px 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  /* Original formatting with slight layout enhancements */
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0; }
+  
+  .section { margin: 0 0 2rem; }
+  .section-title { font-size: 13px; font-weight: 600; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 12px; }
+  
+  .card { 
+    background: var(--color-background-primary); 
+    border: 1px solid var(--color-border-tertiary); 
+    border-radius: var(--border-radius-lg); 
+    padding: 1.25rem 1.5rem; 
+    margin-bottom: 12px; 
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  }
+  
+  .card-title { font-size: 16px; font-weight: 600; margin: 0 0 6px; color: var(--color-text-primary); display: flex; align-items: center; gap: 8px; }
+  .card-desc { font-size: 14px; color: var(--color-text-secondary); margin: 0; line-height: 1.6; }
+  
+  .badge { font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 20px; letter-spacing: 0.02em; }
+  .badge-must { background: var(--color-background-danger); color: var(--color-text-danger); border: 1px solid rgba(248, 113, 113, 0.3); }
+  .badge-should { background: var(--color-background-warning); color: var(--color-text-warning); border: 1px solid rgba(251, 191, 36, 0.3); }
+  .badge-free { background: var(--color-background-success); color: var(--color-text-success); border: 1px solid rgba(52, 211, 153, 0.3); }
+  .badge-paid { background: var(--color-background-info); color: var(--color-text-info); border: 1px solid rgba(96, 165, 250, 0.3); }
+  
+  .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .pill { font-size: 12px; font-weight: 500; color: var(--color-text-primary); background: var(--color-background-secondary); border: 1px solid var(--color-border-tertiary); border-radius: 20px; padding: 4px 12px; }
+  
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+  
+  .metric { background: var(--color-background-secondary); border: 1px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 16px; text-align: center; }
+  .metric-label { font-size: 13px; font-weight: 500; color: var(--color-text-secondary); margin: 0 0 6px; }
+  .metric-value { font-size: 26px; font-weight: 700; color: var(--color-text-primary); margin: 0; }
+  
+  h1 { font-size: 28px; font-weight: 700; margin: 0 0 8px; color: var(--color-text-primary); letter-spacing: -0.02em; }
+  .subtitle { font-size: 15px; font-weight: 500; color: var(--color-text-secondary); margin: 0 0 2rem; }
+  .divider { border: none; border-top: 1px solid var(--color-border-tertiary); margin: 2.5rem 0; }
+  
+  .legend { display: flex; gap: 16px; margin: 0 0 2rem; flex-wrap: wrap; background: var(--color-background-primary); padding: 16px; border-radius: var(--border-radius-md); border: 1px solid var(--color-border-tertiary); }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+</style>
+</head>
+<body>
+
+<h2 class="sr-only">MVP plan for a gamified math learning Telegram Mini App for Ukrainian school students</h2>
+
+<h1>MathUp — MVP plan</h1>
+<p class="subtitle">Telegram Mini App · Grades 4–11 · NMT prep · Freemium</p>
+
+<div class="legend">
+  <div class="legend-item"><span class="badge badge-must">Must have</span> core for launch</div>
+  <div class="legend-item"><span class="badge badge-should">Should have</span> strong MVP</div>
+  <div class="legend-item"><span class="badge badge-free">Free tier</span></div>
+  <div class="legend-item"><span class="badge badge-paid">Paid tier</span></div>
+</div>
+
+<div class="section">
+  <p class="section-title">🎮 Core gameplay</p>
+
+  <div class="card">
+    <div class="card-title"><i class="ti ti-layers-subtract" aria-hidden="true"></i> Adaptive difficulty engine <span class="badge badge-must">Must have</span></div>
+    <p class="card-desc">Questions get harder as the student succeeds. Tracks accuracy per topic and adjusts difficulty in real time. The heart of the product — without this, it's just a quiz.</p>
+    <div class="pill-row">
+      <span class="pill">ELO-style rating per topic</span>
+      <span class="pill">Wrong answer → easier follow-up</span>
+      <span class="pill">Streak detection</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><i class="ti ti-device-gamepad-2" aria-hidden="true"></i> Math mini-games <span class="badge badge-must">Must have</span></div>
+    <p class="card-desc">3–4 game formats for MVP: speed round (solve before timer), drag-and-match, fill-in-the-blank, and multiple choice. Keeps sessions fresh and engagement high.</p>
+    <div class="pill-row">
+      <span class="pill">Speed round</span>
+      <span class="pill">Drag & match</span>
+      <span class="pill">Fill in the blank</span>
+      <span class="pill">Multiple choice</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><i class="ti ti-trophy" aria-hidden="true"></i> XP, levels & streaks <span class="badge badge-must">Must have</span></div>
+    <p class="card-desc">Students earn XP per correct answer and level up. Daily streaks encourage return visits. Visual rewards (stars, badges) give immediate feedback — critical for ages 10–18.</p>
+    <div class="pill-row">
+      <span class="pill">XP per answer</span>
+      <span class="pill">Level-up animation</span>
+      <span class="pill">Daily streak counter</span>
+      <span class="pill">Achievement badges</span>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <p class="section-title">📚 Content & curriculum</p>
+
+  <div class="card">
+    <div class="card-title"><i class="ti ti-math" aria-hidden="true"></i> Topic library — grades 4–11 <span class="badge badge-must">Must have</span></div>
+    <p class="card-desc">Structured topic tree aligned to the Ukrainian school curriculum. MVP should cover arithmetic, fractions, algebra basics, geometry, and equations — the most NMT-tested areas.</p>
+    <div class="pill-row">
+      <span class="pill">Arithmetic</span>
+      <span class="pill">Fractions & percentages</span>
+      <span class="pill">Algebra</span>
+      <span class="pill">Geometry basics</span>
+      <span class="pill">Equations</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><i class="ti ti-file-certificate" aria-hidden="true"></i> NMT practice mode <span class="badge badge-must">Must have</span></div>
+    <p class="card-desc">Dedicated mode with real NMT-style questions (timed, multiple choice, no hints). A huge differentiator for Ukrainian students preparing for the national exam.</p>
+    <div class="pill-row">
+      <span class="pill">NMT question format</span>
+      <span class="pill">Timed sessions</span>
+      <span class="pill">Topic coverage map</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><i class="ti ti-bulb" aria-hidden="true"></i> Step-by-step hints <span class="badge badge-should">Should have</span> <span class="badge badge-paid">Paid</span></div>
+    <p class="card-desc">When a student is stuck, they can unlock a hint showing the solving method step by step. Free tier gets 3 hints/day; paid gets unlimited. Strong upsell trigger.</p>
+  </div>
+</div>
+
+<div class="section">
+  <p class="section-title">📊 Progress & profile</p>
+
+  <div class="card">
+    <div class="card-title"><i class="ti ti-chart-line" aria-hidden="true"></i> Progress dashboard <span class="badge badge-must">Must have</span></div>
+    <p class="card-desc">Shows mastery per topic (e.g. "Fractions: 74%"), total XP, current level, and weak spots. Students and parents can see exactly what needs work.</p>
+    <div class="pill-row">
+      <span class="pill">Per-topic mastery %</span>
+      <span class="pill">Weak spot highlight</span>
+      <span class="pill">Weekly activity graph</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><i class="ti ti-users" aria-hidden="true"></i> Leaderboard <span class="badge badge-should">Should have</span> <span class="badge badge-free">Free</span></div>
+    <p class="card-desc">Weekly class or grade-level leaderboard inside Telegram. Drives social competition and organic sharing — Telegram's social graph makes this very powerful.</p>
+    <div class="pill-row">
+      <span class="pill">Weekly top-10</span>
+      <span class="pill">Share score to chat</span>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <p class="section-title">💰 Freemium model</p>
+
+  <div class="two-col">
+    <div class="card" style="border-color: var(--color-border-secondary);">
+      <div class="card-title"><i class="ti ti-lock-open" aria-hidden="true"></i> Free tier</div>
+      <p class="card-desc" style="margin-bottom: 10px;">Enough to hook students, limited enough to upsell.</p>
+      <div class="pill-row">
+        <span class="pill">All topics (limited questions)</span>
+        <span class="pill">3 hints/day</span>
+        <span class="pill">Basic progress</span>
+        <span class="pill">Leaderboard</span>
+        <span class="pill">NMT mode (5/month)</span>
+      </div>
+    </div>
+    <div class="card" style="border: 1px solid var(--color-border-info); box-shadow: 0 0 15px rgba(59, 130, 246, 0.1);">
+      <div style="margin: -4px 0 8px;"><span class="badge badge-paid">Pro — paid</span></div>
+      <div class="card-title"><i class="ti ti-star" aria-hidden="true"></i> Premium</div>
+      <p class="card-desc" style="margin-bottom: 10px;">Suggested: ~99–149 UAH/month or semester pass.</p>
+      <div class="pill-row">
+        <span class="pill">Unlimited questions</span>
+        <span class="pill">Unlimited hints</span>
+        <span class="pill">Unlimited NMT</span>
+        <span class="pill">Detailed analysis</span>
+        <span class="pill">Offline mode</span>
+        <span class="pill">No ads</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <p class="section-title">⚙️ Telegram mini app tech stack</p>
+
+  <div class="card">
+    <div class="card-title"><i class="ti ti-brand-telegram" aria-hidden="true"></i> Telegram-specific requirements</div>
+    <p class="card-desc">The app lives inside Telegram as a Web App (TWA). Uses Telegram's native auth — no separate login needed. Payments via Telegram Stars or direct card.</p>
+    <div class="pill-row">
+      <span class="pill">Telegram Web App SDK</span>
+      <span class="pill">Telegram auth</span>
+      <span class="pill">Telegram Stars</span>
+      <span class="pill">Reminders bot</span>
+      <span class="pill">Share to chat</span>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title"><i class="ti ti-layout-2" aria-hidden="true"></i> Frontend</div>
+      <p class="card-desc">React + Vite. Telegram UI Kit for native feel. Optimised for mobile — all interactions must be thumb-friendly.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><i class="ti ti-server" aria-hidden="true"></i> Backend</div>
+      <p class="card-desc">Node.js or Python (FastAPI). PostgreSQL for user progress. Redis for leaderboard. Hosted on Railway or Render for fast start.</p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <p class="section-title">🗓 Suggested build order</p>
+
+  <div class="card">
+    <div class="card-title" style="align-items: flex-start; flex-direction: column; gap: 4px;">
+      <span>Week 1–2 — skeleton</span>
+    </div>
+    <p class="card-desc">Telegram bot + Mini App shell, auth, 1 game mode (multiple choice), 20 questions from 2 topics, XP counter.</p>
+  </div>
+  <div class="card">
+    <div class="card-title" style="align-items: flex-start; flex-direction: column; gap: 4px;">
+      <span>Week 3–4 — core loop</span>
+    </div>
+    <p class="card-desc">Adaptive difficulty, daily streaks, progress dashboard, full topic library (arithmetic + algebra MVP content).</p>
+  </div>
+  <div class="card">
+    <div class="card-title" style="align-items: flex-start; flex-direction: column; gap: 4px;">
+      <span>Week 5–6 — differentiation</span>
+    </div>
+    <p class="card-desc">NMT mode, leaderboard, 3 additional game formats, hints system with paywall, Telegram Stars payment integration.</p>
+  </div>
+  <div class="card">
+    <div class="card-title" style="align-items: flex-start; flex-direction: column; gap: 4px;">
+      <span>Week 7–8 — polish & launch</span>
+    </div>
+    <p class="card-desc">Animations, onboarding flow, reminder bot messages, performance optimisation, beta test with 20–30 real students, fix critical bugs.</p>
+  </div>
+</div>
+
+<div class="section">
+  <p class="section-title">🎯 MVP success metrics</p>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px;">
+    <div class="metric"><p class="metric-label">Day-7 retention</p><p class="metric-value">&gt;30%</p></div>
+    <div class="metric"><p class="metric-label">Avg session</p><p class="metric-value">&gt;8 min</p></div>
+    <div class="metric"><p class="metric-label">Free → Paid</p><p class="metric-value">&gt;5%</p></div>
+    <div class="metric"><p class="metric-label">Beta users</p><p class="metric-value">50+</p></div>
+  </div>
+</div>
+
+</body>
+</html>
